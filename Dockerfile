@@ -42,14 +42,8 @@ RUN cargo install --git https://github.com/project-serum/anchor anchor-cli --loc
 RUN apt-get install -y git
 # RUN npm install -g mocha ts_node
 
-# config for twitter
-# RUN solana config set --url localhost
-# RUN solana-keygen new > .solana_keys.txt
-
 WORKDIR /project
 ENTRYPOINT ["/bin/bash"]
-
-
 
 
 
