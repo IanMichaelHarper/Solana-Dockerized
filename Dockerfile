@@ -12,7 +12,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> \
 # install nodejs and yarn 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
-RUN apt-get install -y gcc g++ make
+RUN apt-get install -y gcc g++ make vim git
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null
 RUN echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y yarn
@@ -24,8 +24,7 @@ RUN mkdir -p /project
 RUN chown -R 999:999 /project
 RUN chmod -R 777 /project
 
-RUN npm install -g npm@8.13.1
-RUN npm install -g npm@8.13.1
+RUN npm install -g npm@8.13.2
 
 # install rust and solana
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
@@ -37,10 +36,6 @@ ENV RUST_LOG="solana_runtime::system_instruction_processor=trace,solana_runtime:
 # install anchor and it's dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config libudev-dev libssl-dev
 RUN cargo install --git https://github.com/project-serum/anchor anchor-cli --locked
-
-# dependencies for twitter
-RUN apt-get install -y git
-# RUN npm install -g mocha ts_node
 
 WORKDIR /project
 ENTRYPOINT ["/bin/bash"]
